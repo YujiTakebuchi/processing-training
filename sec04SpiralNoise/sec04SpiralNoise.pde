@@ -12,17 +12,12 @@ noFill();
 ellipse(centX, centY, radius*2, radius*2);
 
 stroke(20, 50, 70);
-radius = 10;
 float x, y;
 float lastX = -999;
 float lastY = -999;
-float radiusNoise = random(10);
-for ( float ang = 0; ang <= 1440; ang += 5) {
-    radiusNoise +=  0.5;
-    radius += 0.5;
-    float thisRadius = radius + (noise(radiusNoise) * 20) - 10;
+for ( float ang = 0; ang <= 360; ang += 5) {
     float rad = radians(ang);
-    x = centX + (thisRadius * cos(rad));
-    y = centY + (thisRadius * sin(rad));
+    x = centX + (radius * cos(rad));
+    y = centY + (radius * sin(rad));
     point(x, y);
 }
