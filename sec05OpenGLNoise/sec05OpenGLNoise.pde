@@ -1,0 +1,60 @@
+import processing.opengl.*;
+
+float xStart, xNoise, yStart, yNoise;
+
+void setup() {
+    size(500, 300, OPENGL);
+    background(0);
+    sphereDetail(8);
+    noStroke();
+    
+    xStart = random(10);
+    yStart = random(10);
+}
+
+void draw() {
+    background(0);
+
+    xStart += 0.01;
+    yStart += 0.01;
+
+    xNoise = xStart;
+    yNoise = yStart;
+
+    for (int y = 0; y <= height; y+=5) {
+        yNoise += 0.1;
+        xNoise = xStart;
+        for (int x = 0; x <= width; x+=5) {
+            xNoise += 0.1;
+            drawPoint(x, y, noise(xNoise, yNoise));
+        }
+    }
+}
+
+// ブロックの集合のような描画
+// void drawPoint(float x, float y, float noiseFactor) {
+//     float len = 10 * noiseFactor;
+//     rect(x, y, len, len);
+// }
+
+// すね毛の集合のような描画
+// void drawPoint(float x, float y, float noiseFactor) {
+//     pushMatrix();
+//     translate(x, y);
+//     rotate(noiseFactor * radians(360));
+//     stroke(0, 150);
+//     line(0, 0, 20, 0);
+//     popMatrix();
+// }
+
+// ふんわりした雪の集合のような描画
+void drawPoint(float x, float y, float noiseFactor) {
+    pushMatrix();
+    translate(x, 250 - y, -y);
+    float sphereSize = noiseFactor * 35;
+    float grey = 150 + (noiseFactor * 120);
+    float alph = 150 + (noiseFactor * 120);
+    fill(grey, alph);
+    sphere(sphereSize);
+    popMatrix();
+}
